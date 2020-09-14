@@ -1,6 +1,6 @@
 # TeaShell
 
-The ZShell version of [BashMyTea](https://github.com/CupOfTea696/BashMyTea), TeaShell is an install script to set up my dev environment.
+The ZShell successor of [BashMyTea](https://github.com/CupOfTea696/BashMyTea), TeaShell is an install script to set up my dev environment.
 
 ## Installation
 
