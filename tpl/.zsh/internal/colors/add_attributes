@@ -1,0 +1,19 @@
+local lc=$'\e[' rc=m
+local attributes=(
+  none                    # gothic
+  bold                    # double-underline
+  faint                     normal
+  standout                  no-standout
+  underline                 no-underline
+  blink                     no-blink
+# fast-blink              # proportional
+  reverse                   no-reverse
+  conceal                   no-conceal
+# strikethrough           # no-strikethrough
+)
+
+typeset -AHg attr attribute
+for a in $attributes; do
+  attr[${a}]="$lc${color[$a]}$rc"
+done
+attribute=attr

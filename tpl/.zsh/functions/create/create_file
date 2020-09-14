@@ -1,0 +1,10 @@
+# Create a File
+function ___create_file {
+  if [ ! -e "$1" ]; then
+    echo "" >> "$1" && echo "$1"
+  else
+    echo "$1"
+  fi
+}
+
+___create_file "$@"

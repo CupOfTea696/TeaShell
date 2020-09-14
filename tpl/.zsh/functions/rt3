@@ -1,0 +1,6 @@
+# Remote It
+function ___rt3 {
+    ssh -l "$1" "proxy$2.rt3.io" -p "$3"
+}
+
+___rt3 "$@"

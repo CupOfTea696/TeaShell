@@ -1,0 +1,4 @@
+{{#COMPOSER_INSTALLED}}
+# Composer commands
+export PATH="~/.composer/vendor/bin:$PATH"
+{{/COMPOSER_INSTALLED}}

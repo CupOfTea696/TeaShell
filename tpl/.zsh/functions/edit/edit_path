@@ -1,0 +1,6 @@
+# Edit a Path with your IDE
+function ___edit_path {
+  edit_path_with_editor "$IDE" "$@"
+}
+
+___edit_path "$@"

@@ -1,0 +1,6 @@
+setopt auto_cd                  # If the command isn't a command, but is a directory, cd into it
+setopt auto_pushd               # make cd push old dir in dir stack
+setopt pushd_ignore_dups        # no duplicates in dir stack
+setopt pushd_minus              # swap the meanings of ‘+’ and ‘-’ to specify a directory in the stack
+setopt pushd_silent             # no dir stack after pushd or popd
+setopt pushd_to_home            # `pushd` = `pushd $HOME`

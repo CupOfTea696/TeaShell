@@ -1,0 +1,6 @@
+# Make, Enter, and Edit a Directory
+function ___mkdir_and_edit {
+    make_dir "$1" && edit_path ./
+}
+
+___mkdir_and_edit "$@"

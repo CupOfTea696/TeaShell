@@ -1,0 +1,6 @@
+function ___homestead_update_repo() {
+    # shellcheck disable=SC2046
+    ( cd ~/Homestead && git fetch --tags && git checkout $(git describe --tags $(git rev-list --tags --max-count=1)))
+}
+
+___homestead_update_repo "$@"

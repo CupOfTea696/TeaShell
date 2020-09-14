@@ -1,0 +1,6 @@
+# Run a Shell Command on Homestead
+function ___homestead_cmd {
+    ssh -qt vagrant@192.168.10.10 ". ~/.bash_aliases && $*"
+}
+
+___homestead_cmd "$@"

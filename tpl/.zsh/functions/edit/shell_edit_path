@@ -1,0 +1,6 @@
+# Edit a Path in the Shell
+function ___shell_edit_path {
+  edit_path_with_editor "$SHELL_EDITOR" "$@"
+}
+
+___shell_edit_path "$@"

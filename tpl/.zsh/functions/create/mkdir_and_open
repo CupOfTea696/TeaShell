@@ -1,0 +1,6 @@
+# Make, Enter, and Open a Directory in Finder
+function ___mkdir_and_open {
+    make_dir "$1" && finder ./
+}
+
+___mkdir_and_open "$@"

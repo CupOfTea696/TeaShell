@@ -1,0 +1,107 @@
+# Switch PHP version
+function ___switch_php {
+    # Option defaults
+    INSTALL=0
+
+    ARGS=()
+    for i in "$@"; do
+        case ${i} in
+            -i|--install)
+                INSTALL=1
+                shift
+                ;;
+            *)
+                if [[ $1 != -* ]]; then
+                    ARGS+=("$1")
+                fi
+
+                shift
+                ;;
+        esac
+    done
+    set -- "${ARGS[@]}"
+
+    current="$(php -r 'echo phpversion();' | cut -c1-3)"
+    versions=("7.2" "7.3" "7.4");
+    brewed=`brew info --installed --json | php -r '$json = json_decode(file_get_contents("php://stdin")); $php = array_map(function ($f) { foreach ($f->aliases as $a) { if (preg_match("/^php@(.+)/", $a, $m)) { return $m[1]; } } if (preg_match("/^php@(.+)/", $f->name, $m)) { return $m[1]; } }, $json); $php = array_filter($php); echo implode(" ", $php);'`
+    brewable=`brew search '/^php@/' | grep php | php -r '$php = array_filter(preg_split("/[\\s\\n]+/", file_get_contents("php://stdin")), function ($f) { return substr($f, 0, 3) === "php"; }); $php = array_map(function ($f) { return str_replace("php@", "", $f); }, $php); echo implode(" ", $php);'`
+    available=()
+    installable=()
+    unavailable=()
+
+    for v in "${versions[@]}"; do
+        skip=0
+
+        for i in ${brewed}; do
+            if [[ ${v} == "${i}" ]]; then
+                skip=1
+                available+=("${v}")
+
+                break
+            fi
+        done
+
+        for i in ${brewable}; do
+            if [[ ${v} == "${i}" ]]; then
+                skip=1
+                installable+=("${v}")
+
+                break
+            fi
+        done
+
+        if [[ ${skip} == 0 ]]; then
+            unavailable+=("${v}")
+        fi
+    done
+
+    if [[ -z "$1" ]]; then
+        # shellcheck disable=SC2124
+        requested=${available[@]:(-1)}
+        echo "Switching to the latested installed php formula: php@$requested"
+    elif [[ "$1" == "latest" ]]; then
+        # shellcheck disable=SC2124
+        requested=${installable[@]:(-1)}
+    else
+        requested="$1"
+    fi
+
+    if [[ ${requested} == "${current}" ]]; then
+        echo "$requested is already the current version"
+        return
+    fi
+
+    for version in "${available[@]}"; do
+        if [[ ${version} == "${requested}" ]]; then
+            brew unlink "php@$current" 2> /dev/null
+            brew link --force "php@$requested"
+
+            return
+        fi
+    done
+
+    for version in "${installable[@]}"; do
+        if [[ ${version} == "${requested}" ]]; then
+            if [[ ${INSTALL} == 1 ]]; then
+                echo "Installing php@$requested"
+                brew install "php@$requested"
+                echo "Installed php@$requested"
+
+                brew unlink "php@$current" 2> /dev/null
+                brew link --force "php@$requested"
+
+                return
+            fi
+
+            echo "php@$requested is not installed" >&2
+            echo "Automatically install this version by running:" >&2
+            echo "  sphp $requested --install" >&2
+            return 1
+        fi
+    done
+
+    echo "Could not find the formula php@$requested, make sure you have the required repository tapped" >&2
+    return 1
+}
+
+___switch_php "$@"

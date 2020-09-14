@@ -1,0 +1,11 @@
+# Create a Webloc File
+function ___create_webloc {
+    file="${1%/.webloc/}.webloc"
+    uri="$2"
+
+    cat > "${file}" <<-EOF && echo "${file}"
+<?xml version='1.0' encoding='UTF-8'?><!DOCTYPE plist PUBLIC '-//Apple//DTD PLIST 1.0//EN' 'http://www.apple.com/DTDs/PropertyList-1.0.dtd'><plist version='1.0'><dict><key>URL</key><string>${uri}</string></dict></plist>
+EOF
+}
+
+___create_webloc "$@"

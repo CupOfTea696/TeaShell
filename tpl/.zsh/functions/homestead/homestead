@@ -1,0 +1,6 @@
+# Execute Homestead Commands
+function ___homestead {
+    ( cd ~/Homestead && vagrant "$@" )
+}
+
+___homestead "$@"

@@ -1,0 +1,6 @@
+# Change Working Directory and Open in Editor
+function ___chdir_and_edit {
+    cd "$1" && edit_path ./
+}
+
+___chdir_and_edit "$@"

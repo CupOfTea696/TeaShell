@@ -1,0 +1,17 @@
+# Completions
+sinetoami/antibody-completion
+zsh-users/zsh-completions
+
+# Plugins
+djui/alias-tips
+#sei40kr/fast-alias-tips-bin
+#sei40kr/zsh-fast-alias-tips
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-history-substring-search
+
+# Themes
+#denysdovhan/spaceship-prompt
+romkatv/powerlevel10k
+
+# This should always be last
+zdharma/fast-syntax-highlighting

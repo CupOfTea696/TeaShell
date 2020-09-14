@@ -1,0 +1,6 @@
+autoload colors add_attributes additional_colors
+colors
+add_attributes
+additional_colors
+
+rc=$reset_color

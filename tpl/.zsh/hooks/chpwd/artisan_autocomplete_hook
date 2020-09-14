@@ -1,0 +1,5 @@
+if [[ -f artisan ]]; then
+  eval "$(symfony-autocomplete "php -d 'error_reporting=E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING' ./artisan" --aliases=art --aliases=a)"
+else
+  complete -r a art artisan 2>/dev/null || true
+fi

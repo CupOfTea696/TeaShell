@@ -1,0 +1,10 @@
+function ___shell {
+  local func="$1"
+  if [ -n "${aliases[$1]}" ]; then
+    func="${aliases[$1]}"
+  fi
+
+  "shell_${func}" "${@:2}"
+}
+
+___shell "$@"

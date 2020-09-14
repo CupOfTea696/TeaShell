@@ -1,0 +1,51 @@
+local lc=$'\e[' rc=m
+typeset -A color_bright
+color_bright=(
+# Bright text color codes:
+  90 b-black                  100 bg-b-black
+  91 b-red                    101 bg-b-red
+  92 b-green                  102 bg-b-green
+  93 b-yellow                 103 bg-b-yellow
+  94 b-blue                   104 bg-b-blue
+  95 b-magenta                105 bg-b-magenta
+  96 b-cyan                   106 bg-b-cyan
+  97 b-white                  107 bg-b-white
+)
+
+# Map in both directions
+local k
+for k in ${(k)color_bright}; do color_bright[${color_bright[$k]}]=$k; done
+
+# Add "fg-" keys for all the text colors, for clarity.
+for k in ${color_bright[(I)9?]}; do color_bright[fg-${color_bright[$k]}]=$k; done
+
+typeset -AHg fg_faint
+for k in ${(k)color[(I)fg-*]}; do
+    fg_faint[${k#fg-}]="$lc${color[faint]};${color[$k]}$rc"
+done
+
+# Foreground
+for k in ${(k)color_bright[(I)fg-*]}; do
+    fg[${k#fg-}]="$lc${color_bright[$k]}$rc"
+    fg_bold[${k#fg-}]="$lc${color[bold]};${color_bright[$k]}$rc"
+    fg_no_bold[${k#fg-}]="$lc${color[normal]};${color_bright[$k]}$rc"
+done
+
+# Background
+for k in ${(k)color_bright[(I)bg-*]}; do
+    bg[${k#bg-}]="$lc${color_bright[$k]}$rc"
+    bg_bold[${k#bg-}]="$lc${color[bold]};${color_bright[$k]}$rc"
+    bg_no_bold[${k#bg-}]="$lc${color[normal]};${color_bright[$k]}$rc"
+done
+
+for k ({0..255}); do
+  fg[$k]="${lc}38;5;${k}${rc}"
+  fg_bold[$k]="${lc}${color[bold]};38;5;${k}${rc}"
+  fg_no_bold[$k]="${lc}${color[normal]};38;5;${k}${rc}"
+
+  bg[$k]="${lc}48;5;${k}${rc}"
+  bg_bold[$k]="${lc}${color[bold]};48;5;${k}${rc}"
+  bg_no_bold[$k]="${lc}${color[normal]};48;5;${k}${rc}"
+done
+
+color=("${(@kv)color_bright}" "${(@kv)color}")

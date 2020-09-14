@@ -1,0 +1,5 @@
+out="${fg[white]}↳ ${rc}${fg_bold[cyan]}[DIRS]${rc}"
+
+if [[ $? -eq 0 ]]; then
+  echo "${out/\[DIRS\]/$(print -rD $PWD)}"
+fi

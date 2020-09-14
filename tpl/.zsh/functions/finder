@@ -1,0 +1,11 @@
+# Open in Finder
+function ___finder {
+  local path="$1"
+  if [ -z "$path" ]; then
+    read -r path
+  fi
+
+  /usr/bin/open -a finder "$path"
+}
+
+___finder "$@"

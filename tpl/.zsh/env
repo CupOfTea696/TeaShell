@@ -1,0 +1,90 @@
+# Editor
+export IDE="{{INST_IDE}}"
+export VISUAL="{{INST_SHELL_EDITOR}}"
+export QUICK_EDITOR="{{INST_EDITOR}}"
+export SHELL_EDITOR="{{INST_SHELL_EDITOR}}"
+
+# ls colors
+export LSCOLORS=HxFxcxexGxegedabagacad # Generated using https://geoff.greer.fm/lscolors/
+
+# Alias Tips config
+export ZSH_PLUGINS_ALIAS_TIPS_TEXT="$(tput setaf 11) $(tput bold)"
+export ZSH_PLUGINS_ALIAS_TIPS_EXCLUDES=""
+FAST_ALIAS_TIPS_PREFIX="$(tput setaf 11) $(tput bold)"
+
+# Splash Screen Config
+SPLASH_STYLE="${attr[faint]}"
+SPLASH_INTRO_STYLE="${fg[b-yellow]}"
+SPLASH_VERSION_STYLE="${fg[214]}"
+SPLASH_FORTUNE_STYLE="${fg_bold[202]}"
+
+SPLASH_IMPORTANT_STYLE="${attr[bold]}"
+
+style_success="${RESET}${BOLD}${BGREEN}"
+style_error="${RESET}${BOLD}${BRED}"
+style_error_code="${RESET}${BRED}"
+
+style_user="${RESET}${BOLD}${BMAGENTA}"
+style_host="${RESET}${BOLD}${MAGENTA}"
+style_path="${RESET}${BBLUE}"
+style_chars="${RESET}${WHITE}"
+style_branch="${RESET}${BOLD}${BCYAN}"
+style_prompt="${RESET}${BWHITE}"
+
+# Spaceship config
+SPACESHIP_PROMPT_ORDER=(
+  user          # Username section
+  host          # Hostname section
+  dir           # Current directory section
+  git           # Git section (git_branch + git_status)
+  package       # Package version
+  node          # Node.js section
+  ruby          # Ruby section
+  php           # PHP section
+  docker        # Docker section
+  line_sep      # Line break
+  jobs          # Background jobs indicator
+  char          # Prompt character
+)
+SPACESHIP_RPROMPT_ORDER=(
+  time          # Time stamps section
+)
+
+SPACESHIP_PROMPT_DEFAULT_PREFIX='| '
+
+SPACESHIP_CHAR_SYMBOL='ϟ '
+SPACESHIP_CHAR_SYMBOL_ROOT='›'
+SPACESHIP_CHAR_SYMBOL_SECONDARY=' ϟ '
+SPACESHIP_CHAR_COLOR_SUCCESS=15
+SPACESHIP_CHAR_COLOR_FAILURE=$SPACESHIP_CHAR_COLOR_SUCCESS
+SPACESHIP_CHAR_COLOR_SECONDARY=7
+
+SPACESHIP_USER_SHOW=always
+SPACESHIP_USER_SUFFIX=''
+SPACESHIP_USER_COLOR=13
+
+SPACESHIP_HOST_SHOW=always
+SPACESHIP_HOST_PREFIX='%F{7}@%f'
+SPACESHIP_HOST_SUFFIX='%F{7}:%f '
+SPACESHIP_HOST_COLOR=5
+
+SPACESHIP_DIR_PREFIX=''
+SPACESHIP_DIR_TRUNC=0
+SPACESHIP_DIR_TRUNC_REPO=false
+SPACESHIP_DIR_COLOR=12
+
+SPACESHIP_GIT_PREFIX=''
+SPACESHIP_GIT_BRANCH_COLOR=14
+SPACESHIP_GIT_STATUS_COLOR=11
+
+SPACESHIP_PACKAGE_PREFIX='| '
+SPACESHIP_PACKAGE_SYMBOL=' '
+SPACESHIP_PACKAGE_COLOR=7
+
+SPACESHIP_EXIT_CODE_SHOW=true
+SPACESHIP_EXIT_CODE_PREFIX="\n "
+SPACESHIP_EXIT_CODE_SYMBOL='↳ '
+
+SPACESHIP_TIME_SHOW=true
+SPACESHIP_TIME_FORMAT=" %D{%R}"
+SPACESHIP_TIME_COLOR=7

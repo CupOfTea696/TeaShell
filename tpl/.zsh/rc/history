@@ -1,0 +1,14 @@
+HISTFILE=${${ZSH+${ZSH}/}:-${HOME}/.zsh_}history
+HISTSIZE=50000
+SAVEHIST=100000
+
+setopt append_history           # append
+setopt bang_hist                # !keyword
+setopt extended_history         # add timestamps & duration
+setopt hist_expire_dups_first   # expire duplicates first
+setopt hist_ignore_all_dups     # no duplicate
+setopt hist_ignore_space        # ignore space-prefixed commands
+setopt hist_reduce_blanks       # trim blanks
+#setopt hist_verify             # show before executing history commands
+setopt inc_append_history_time  # add commands after execution, don't wait until shell exit
+setopt share_history            # share hist between sessions

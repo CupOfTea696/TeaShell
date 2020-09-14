@@ -1,0 +1,6 @@
+# Change Working Directory and Open in Editor & Finder
+function ___quick_chdir_edit_and_open {
+    cd "$1" && quick_edit_path ./ && finder ./
+}
+
+___quick_chdir_edit_and_open "$@"

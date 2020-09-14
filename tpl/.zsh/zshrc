@@ -1,0 +1,49 @@
+zsh=${${ZSH+${ZSH}/}:-${HOME}/.zsh_}
+
+# activate complex pattern globbing
+setopt extended_glob
+
+# Homebrew
+export PATH="/usr/local/sbin:$PATH"
+
+{{#COMPOSER_INSTALLED}}
+# Composer
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+{{/COMPOSER_INSTALLED}}
+# Import dotfiles in ~/.zsh/rc/
+fpath+=( ${zsh}internal/(*/)# )
+if [ -d "$ZSH/rc" ]; then
+  for i in $ZSH/rc/*; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi
+
+# Functions
+fpath+=( ${zsh}functions/(*/)# )
+autoload -U ${zsh}functions/**/*(.:t)
+
+# Hooks
+fpath+=( ${zsh}hooks/(*/)# )
+autoload -U add-zsh-hook
+for hook in ${zsh}hooks/*(/); do
+  for fn in ${hook}/**/*(N,.:t); do
+    add-zsh-hook ${hook:t} ${fn}
+  done
+done
+
+# Plugins & Themes
+source ${zsh}plugins.sh
+
+# Environment
+source ${zsh}env
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ${zsh}p10k.zsh ]] && source ${zsh}p10k.zsh
+
+# Splash Screen
+if [[ ${SHOW_SPLASH} -eq 1 ]]; then
+  splash
+fi

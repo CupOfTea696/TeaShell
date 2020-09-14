@@ -1,0 +1,12 @@
+bindkey -e
+
+bindkey -M menuselect ' ' accept-and-infer-next-history
+bindkey -M menuselect '^?' undo
+bindkey -M menuselect '\e' undo
+bindkey '\e[Z' reverse-menu-complete
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+bindkey "\e\e[D" backward-word # alt + <-
+bindkey "\e\e[C" forward-word # alt + ->

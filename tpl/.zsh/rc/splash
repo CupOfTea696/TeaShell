@@ -1,0 +1,51 @@
+export SHOW_SPLASH=${SHOW_SPLASH:-1}
+
+function _splash_line {
+  styled="$1"
+  txt="│ ${2:-${1}}"
+  echo "${SPLASH_STYLE}│ ${rc}$styled${rc}${SPLASH_STYLE}$(head -c $(($(tput cols) - ${#txt} - 1)) /dev/zero | tr '\0' ' ')│${rc}"
+}
+
+function splash {
+    clear
+
+    local git_version=$(git --version | head -n 1 | sed -E 's/git version //')
+    {{#HUB_INSTALLED}}
+    local hub_version=$(git --version | tail -n 1 | sed -E 's/hub version //')
+    {{/HUB_INSTALLED}}
+    {{#COMPOSER_INSTALLED}}
+    local composer_version=$(composer -V | sed -E 's/.*[[:space:]](([0-9]+\.){2}[0-9]+)[[:space:]].*/\1/g')
+    local composer_date=$(composer -V | sed -E 's/.*[[:space:]]([0-9]{4}(-[0-9]{2}){2} ([0-9]{2}:){2}[0-9]{2})/\1/g')
+    {{/COMPOSER_INSTALLED}}
+    {{#HOMESTEAD_INSTALLED}}
+    local vagrant_version=$(vagrant -v | sed -E 's/Vagrant //')
+    {{/HOMESTEAD_INSTALLED}}
+
+    hr \─ | sed "s/^─/${SPLASH_STYLE}┌/" | sed "s/─$/┐${rc}/"
+
+    _splash_line "${SPLASH_INTRO_STYLE}Welcome to ${SPLASH_IMPORTANT_STYLE}$(scutil --get ComputerName)${rc}${SPLASH_INTRO_STYLE}, ${SPLASH_IMPORTANT_STYLE}$(whoami)${rc}" "Welcome to $(scutil --get ComputerName), $(whoami)"
+    _splash_line "${SPLASH_INTRO_STYLE}It is ${SPLASH_IMPORTANT_STYLE}$(now)${rc}" "It is $(now)"
+
+    hr \─ | sed "s/^─/${SPLASH_STYLE}├/" | sed "s/─$/┤${rc}/"
+
+    _splash_line "${SPLASH_VERSION_STYLE} ${SPLASH_IMPORTANT_STYLE}${git_version}${rc}" " ${git_version}"
+    {{#HUB_INSTALLED}}
+    _splash_line "${SPLASH_VERSION_STYLE} ${SPLASH_IMPORTANT_STYLE}${hub_version}${rc}" " ${hub_version}"
+    {{/HUB_INSTALLED}}
+    {{#COMPOSER_INSTALLED}}
+    _splash_line "${SPLASH_VERSION_STYLE} ${SPLASH_IMPORTANT_STYLE}${composer_version}${rc}${SPLASH_VERSION_STYLE} (${composer_date})${rc}" " ${composer_version} (${composer_date})"
+    {{/COMPOSER_INSTALLED}}
+    {{#HOMESTEAD_INSTALLED}}
+    _splash_line "${SPLASH_VERSION_STYLE}謹${SPLASH_IMPORTANT_STYLE}${vagrant_version}${rc}" "謹 ${vagrant_version}"
+    {{/HOMESTEAD_INSTALLED}}
+
+    hr \─ | sed "s/^─/${SPLASH_STYLE}├/" | sed "s/─$/┤${rc}/"
+
+    {{#FORTUNE_INSTALLED}}
+    while IFS='' read -r out || [[ -n "$out" ]]; do
+        _splash_line "${rc} ${SPLASH_FORTUNE_STYLE}$out${rc}" " $out"
+    done <<< "$(fortune -sa | cowsay -f unicorn)"
+
+    hr \─ | sed "s/^─/${SPLASH_STYLE}└/" | sed "s/─$/┘${rc}/"
+    {{/FORTUNE_INSTALLED}}
+}

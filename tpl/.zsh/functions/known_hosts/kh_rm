@@ -1,0 +1,7 @@
+# Remove Known Hosts Entry
+function ___kh_rm {
+  regex=$(sed 's/[^^]/[&]/g; s/\^/\\^/g' <<<"$1")
+  sed -i "/^$regex/d" ~/.ssh/known_hosts
+}
+
+___kh_rm "$@"

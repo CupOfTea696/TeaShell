@@ -1,0 +1,10 @@
+function ___quick {
+  local func="$1"
+  if [ -n "${aliases[$1]}" ]; then
+    func="${aliases[$1]}"
+  fi
+
+  "quick_${func}" "${@:2}"
+}
+
+___quick "$@"

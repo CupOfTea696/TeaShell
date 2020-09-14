@@ -1,0 +1,9 @@
+# Create a Timestamped File
+function ___create_timestamped_file {
+    basename="${1##*/}"
+    dirname="${1%$basename}"
+    path="$dirname$(date '+%Y-%m-%d-%H%M%S')-$basename"
+    create_file "$path"
+}
+
+___create_timestamped_file "$@"

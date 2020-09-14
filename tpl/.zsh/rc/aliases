@@ -1,0 +1,191 @@
+ZSH_PREFIX=${${ZSH+${ZSH}/}:-${HOME}/.zsh_}
+
+# Undollar
+alias \$=''
+
+# ZSH Plugins
+alias plug:up='antibody update'
+alias plug:build='antibody bundle < ${ZSH_PREFIX}plugins.txt > ${ZSH_PREFIX}plugins.sh'
+
+# Fix Camera
+alias fixcam='sudo killall VDCAssistant'
+alias allapps='sudo spctl --master-disable'
+
+# SUDO aliases
+alias fucking='sudo'
+alias fak='sudo'
+alias pls='sudo'
+
+# Maintenance
+alias mup='brew upgrade; brew cask upgrade; brew cleanup; composer self-update; composer global update; n-update lts latest -p; yarn global upgrade'
+
+# Timestamp a Command
+alias ts='timestamp'
+
+# Finder
+alias rfinder="killall Finder"
+alias killfinder="killall Finder"
+alias showhidden="defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder"
+alias hidehidden="defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder"
+
+# Navigation
+alias ..="cd .."
+alias ...="cd ../.."
+alias .2="cd ../.."
+alias .3="cd ../../../"
+alias .4="cd ../../../../"
+alias .5="cd ../../../../../"
+alias .6="cd ../../../../../../"
+alias b="cd -"
+
+# List
+alias ls="ls -pG"
+alias ll="ls -lhpG"
+alias la="ls -lhApG"
+
+# View, Open & Edit Files & Paths
+alias q="quick"
+alias cat="bat"
+
+alias new="create_file"
+alias create="create_file"
+
+alias c:ts="create_timestamped_file"
+alias new:ts="create_timestamped_file"
+alias create:ts="create_timestamped_file"
+
+alias webloc="create_webloc"
+alias c:webloc="create_webloc"
+alias new:webloc="create_webloc"
+alias create:webloc="create_webloc"
+
+alias e="edit_path"
+alias edit="edit_path"
+alias qe="quick_edit_path"
+alias q:edit="quick_edit_path"
+alias she="shell_edit_path"
+alias sh:edit="shell_edit_path"
+
+alias ce="chdir_and_edit"
+alias qce="quick_chdir_and_edit"
+alias cf="chdir_and_open"
+alias co="chdir_and_open"
+alias cef="chdir_edit_and_open"
+alias ceo="chdir_edit_and_open"
+alias qcef="quick_chdir_edit_and_open"
+alias qceo="quick_chdir_edit_and_open"
+
+alias mk="make_dir"
+alias mke="mkdir_and_edit"
+alias qmke="quick_mkdir_and_edit"
+alias mkf="mkdir_and_open"
+alias mko="mkdir_and_open"
+alias mkef="mkdir_edit_and_open"
+alias mkeo="mkdir_edit_and_open"
+alias qmkef="quick_mkdir_edit_and_open"
+alias qmkeo="quick_mkdir_edit_and_open"
+
+{{#TRASH_INSTALLED}}
+alias rm="trash"
+alias rm:trash="empty-trash"
+
+{{/TRASH_INSTALLED}}
+# Network
+alias ip="curl icanhazip.com"
+alias localip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+
+{{#FAST_INSTALLED}}
+alias fast="fast -u"
+{{/FAST_INSTALLED}}
+{{#SPEED_INSTALLED}}
+alias speed="speed-test"
+{{/SPEED_INSTALLED}}
+{{#FAST_SPEED_INSTALLED}}
+
+{{/FAST_SPEED_INSTALLED}}
+alias rt3:c="rt3 cupoftea"
+alias kh:rm="kh_rm"
+alias kh:rmip="kh_rmip"
+
+# Git Aliases
+{{#HUB_INSTALLED}}
+alias git="hub"
+{{/HUB_INSTALLED}}
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gs="git status"
+alias gaa="git add ."
+alias gclean="git rm -r --cached . && git add .  && git commit -m 'rm ignored files'"
+alias gforget="git rm -r --cached . && git add .  && git commit -m 'rm ignored files'"
+alias gsync="git fetch upstream && git checkout master && git merge upstream/master --no-edit && git push"
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+{{#YARN_INSTALLED}}
+# Yarn
+alias y="yarn"
+alias ya="yarn add"
+alias yad="yarn add --dev"
+alias yrm="yarn remove"
+alias yr="yarn run"
+alias yu="yarn upgrade --latest"
+alias yul="yarn upgrade --latest"
+alias yg="yarn global"
+alias yga="yarn global add"
+
+{{/YARN_INSTALLED}}
+{{#COMPOSER_INSTALLED}}
+# Composer
+alias c="export APP_ENV=cli; composer"
+alias cr="c require"
+alias cu="c update"
+alias ci="c install"
+alias crm="c remove"
+alias cda="c dump-autoload -o"
+alias cdu="c dump-autoload -o"
+alias cg="c global"
+alias cgr="cg require"
+alias cgu="cg update"
+alias cgrm="cg remove"
+
+# PHPUnit
+alias phpunit="./vendor/bin/phpunit"
+
+{{/COMPOSER_INSTALLED}}
+{{#HOMESTEAD_INSTALLED}}
+# Homestead
+alias h="homestead up"
+alias hup="homestead up --provision"
+alias hrel="homestead reload --provision"
+alias hh="homestead halt"
+alias hs="homestead ssh"
+alias hp="homestead provision"
+alias he="edit ~/Homestead/Homestead.yaml"
+alias hea="edit ~/Homestead/aliases"
+alias qhe="qedit ~/Homestead/Homestead.yaml"
+alias qhea="qedit ~/Homestead/aliases"
+alias hcmd="homestead_cmd"
+alias hurepo="homestead_update_repo"
+alias hb="h && hcmd 'mkdir /vagrant/db; mysqldump -u homestead --all-databases > /vagrant/db/homestead_backup_\`date \"+%F_%H-%M-%S\"\`.sql'"
+alias hrb="h && hcmd 'mysql -u homestead < \`ls -t /vagrant/db/homestead_backup_*.sql | head -1\`'"
+alias hu="hb && hurepo && h box update && h destroy -f && h box prune && hup && hrb"
+
+# Laravel
+alias a="php artisan --env=cli"
+alias am="a migrate"
+alias ams="a migrate --seed"
+alias arb="a migrate:rollback"
+alias arf="a migrate:refresh"
+alias arfs="a migrate:refresh --seed"
+alias acc="a cache:clear"
+alias art="a"
+alias artm="a migrate"
+alias ams="a migrate --seed"
+alias artrf="a --env=cli migrate:refresh"
+alias artrfs="a --env=cli migrate:refresh --seed"
+alias arcc="a --env=cli cache:clear"
+alias artisan="a"
+
+{{/HOMESTEAD_INSTALLED}}
+# DateTime
+alias now='echo $(date +"%d.%m.%Y, %l:%M%p")'

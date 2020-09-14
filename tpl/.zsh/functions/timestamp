@@ -1,0 +1,33 @@
+# Timestamp a Command
+function ___timestamp {
+    local start="$SECONDS"
+
+    echo "${fg[green]}Process started on ${fg[yellow]}$(date +"%d.%m.%Y")${fg[green]} at ${fg[yellow]}$(date +"%-l:%M%p")${fg[green]}"
+    echo "-----"
+    echo "${rc}"
+
+    # shellcheck disable=SC2068
+    eval $@
+
+    local t=$((SECONDS - start))
+
+    echo "${fg[green]}"
+    echo "-----"
+
+    if [[ $t -gt 0 ]]; then
+        local h=$((t / 60 / 60))
+        local m=$((t / 60 % 60))
+        local s=$((t % 60))
+        local elapsed=""
+        [[ $h -gt 0 ]] && elapsed+=$(printf '%dh' $h)
+        [[ $h -gt 0 || $m -gt 0 ]] && elapsed+=$(printf '%dm' $m)
+        [[ $h -gt 0 || $m -gt 0 || $s -gt 0 ]] && elapsed+=$(printf '%ds\n' $s)
+
+        echo "Process finished at ${fg[yellow]}$(date +"%-l:%M%p")${fg[green]}"
+        echo "Duration: ${fg[yellow]}${elapsed}${fg[green]}"
+    fi
+
+    echo "Done${rc}"
+}
+
+___timestamp "$@"

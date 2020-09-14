@@ -1,0 +1,7 @@
+# Make and Enter a Directory
+function ___make_dir {
+    # shellcheck disable=SC2164
+    mkdir "$1" && cd "$1"
+}
+
+___make_dir "$@"

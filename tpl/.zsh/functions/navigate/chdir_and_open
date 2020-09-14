@@ -1,0 +1,6 @@
+# Change Working Directory and Open in Finder
+function ___chdir_and_open {
+    cd "$1" && finder ./
+}
+
+___chdir_and_open "$@"

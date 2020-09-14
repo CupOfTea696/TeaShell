@@ -1,0 +1,6 @@
+# Edit a Path with the Quick Editor
+function ___quick_edit_path {
+  edit_path_with_editor "$QUICK_EDITOR" "$@"
+}
+
+___quick_edit_path "$@"

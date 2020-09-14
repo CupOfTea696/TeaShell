@@ -1,0 +1,11 @@
+# Edit a Path With the Given Editor
+function ___edit_path_with_editor {
+  local _path="$2"
+  if [ -z "$_path" ]; then
+    read -r _path
+  fi
+
+  $1 "$_path"
+}
+
+___edit_path_with_editor "$@"
